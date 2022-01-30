@@ -9,4 +9,5 @@ RUN apt update && \
 
 # install dependencies for your application
 RUN apt install -y golang-go
+# run your server application in the foreground
 CMD ["go", "run", "pong.go"]
