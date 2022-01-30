@@ -1,6 +1,6 @@
-# h3labo
+# Network-Compose
 
-Docker environment for experiments QUIC and HTTP/3
+Docker-Compose Environment for Client-Server Network Experiments
 
 # Tutorial
 
