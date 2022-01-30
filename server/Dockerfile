@@ -5,6 +5,6 @@ RUN apt-get update && \
     add-apt-repository ppa:longsleep/golang-backports && \
     apt-get update && \
     apt-get install golang-go iproute2 python3-pip -y && \
-    pip3 install -y tcconfig
+    pip3 install --no-input tcconfig
 ADD pong.go .
 CMD ["go", "run", "pong.go"]
