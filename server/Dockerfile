@@ -12,8 +12,9 @@ RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
     curl -O https://nginx.org/download/nginx-1.16.1.tar.gz && \
     tar xzvf nginx-1.16.1.tar.gz && \
-    git clone --recursive https://github.com/cloudflare/quiche && \
-    cd nginx-1.16.1 && \
+    git clone --recursive https://github.com/cloudflare/quiche
+ENV PATH $PATH:$HOME/.cargo/bin
+RUN cd nginx-1.16.1 && \
     patch -p01 < ../quiche/nginx/nginx-1.16.patch && \
     ./configure \
       --prefix=$PWD \
@@ -26,6 +27,5 @@ RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
     make && \
     mkdir logs && \
     cp ../nginx.h3.conf ./conf/nginx.conf
-ENV PATH $PATH:$HOME/.cargo/bin
 # run your server application in the foreground
 CMD ["/work/nginx-1.16.1/objs/nginx", "-g", "daemon off;"]
