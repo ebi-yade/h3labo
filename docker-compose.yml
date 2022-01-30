@@ -3,11 +3,21 @@ services:
   client:
     container_name: client
     build: ./client
+    volumes:
+      - type: bind
+        source: ./client
+        target: /work
     tty: true
     cap_add:
       - NET_ADMIN
   server:
     container_name: server
     build: ./server
+    # you can override the server command here
+    # command: ["/usr/sbin/nginx", "-g", "daemon off;"]
+    volumes:
+      - type: bind
+        source: ./server
+        target: /work
     cap_add:
       - NET_ADMIN

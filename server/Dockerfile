@@ -6,5 +6,4 @@ RUN apt-get update && \
     apt-get update && \
     apt-get install golang-go iproute2 python3-pip -y && \
     pip3 install --no-input tcconfig
-ADD pong.go .
 CMD ["go", "run", "pong.go"]
