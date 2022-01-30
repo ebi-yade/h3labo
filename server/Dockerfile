@@ -8,13 +8,15 @@ RUN apt update && \
     pip3 install --no-input tcconfig
 
 # install dependencies for your application
+ENV HOME /home/ubuntu
+ENV PATH $PATH:$HOME/.cargo/bin
+COPY nginx.h3.conf /work/nginx.h3.conf
 RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
     curl -O https://nginx.org/download/nginx-1.16.1.tar.gz && \
     tar xzvf nginx-1.16.1.tar.gz && \
-    git clone --recursive https://github.com/cloudflare/quiche
-ENV PATH $PATH:$HOME/.cargo/bin
-RUN cd nginx-1.16.1 && \
+    git clone --recursive https://github.com/cloudflare/quiche && \
+    cd nginx-1.16.1 && \
     patch -p01 < ../quiche/nginx/nginx-1.16.patch && \
     ./configure \
       --prefix=$PWD \
