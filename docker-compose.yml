@@ -13,8 +13,6 @@ services:
   server:
     container_name: server
     build: ./server
-    # you can override the server command here
-    # command: ["/usr/sbin/nginx", "-g", "daemon off;"]
     volumes:
       - type: bind
         source: ./server
