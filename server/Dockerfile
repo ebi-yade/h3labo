@@ -30,4 +30,4 @@ RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
     mkdir logs && \
     cp ../nginx.h3.conf ./conf/nginx.conf
 # run your server application in the foreground
-CMD ["/work/nginx-1.16.1/objs/nginx", "-g", "daemon off;"]
+# CMD ["/work/nginx-1.16.1/objs/nginx", "-g", "daemon off;"]

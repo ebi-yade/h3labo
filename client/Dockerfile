@@ -5,4 +5,8 @@ RUN apt update && \
     pip3 install --no-input tcconfig
 
 # install dependencies for your application
-RUN apt install iputils-ping
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt install -y software-properties-common && \
+    add-apt-repository ppa:longsleep/golang-backports && \
+    apt update && \
+    apt install -y golang
