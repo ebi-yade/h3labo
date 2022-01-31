@@ -1,5 +1,4 @@
 FROM ubuntu:20.04
-WORKDIR /work
 RUN apt update && \
     apt install -y software-properties-common && \
     add-apt-repository ppa:longsleep/golang-backports && \
@@ -10,7 +9,8 @@ RUN apt update && \
 # install dependencies for your application
 ENV HOME /home/ubuntu
 ENV PATH $PATH:$HOME/.cargo/bin
-COPY nginx.h3.conf /work/nginx.h3.conf
+WORKDIR $HOME
+COPY nginx.h3.conf $HOME/nginx.h3.conf
 RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
     curl https://sh.rustup.rs -sSf | sh -s -- -y --default-toolchain stable && \
     curl -O https://nginx.org/download/nginx-1.16.1.tar.gz && \
@@ -28,6 +28,6 @@ RUN apt install -y cmake curl git libpcre3 libpcre3-dev zlib1g-dev && \
       --with-quiche=../quiche && \
     make && \
     mkdir logs && \
-    cp ../nginx.h3.conf ./conf/nginx.conf
+    cp $HOME/nginx.h3.conf ./conf/nginx.conf
 # run your server application in the foreground
-# CMD ["/work/nginx-1.16.1/objs/nginx", "-g", "daemon off;"]
+CMD ["/home/ubuntu/nginx-1.16.1/objs/nginx", "-g", "daemon off;"]
